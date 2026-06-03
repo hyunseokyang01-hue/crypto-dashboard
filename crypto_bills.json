@@ -1,0 +1,16 @@
+﻿{
+  "_읽는법": "status는 done(완료)/in_progress(진행중)/pending(예정) 셋. 뉴스 보고 date·status만 고치면 됨. 법안 추가는 키 하나 더.",
+  "CLARITY Act (US)": {
+    "설명": "미국 디지털자산 시장구조법. SEC/CFTC 관할 정리.",
+    "stages": [
+      {"stage": "하원 발의",          "date": "2025-05-29", "status": "done"},
+      {"stage": "하원 본회의 통과",     "date": "2025-07",    "status": "done"},
+      {"stage": "상원 토론 초안 공개",   "date": "2025-09-05", "status": "done"},
+      {"stage": "상원 은행위 가결(15-9)","date": "2026-05-14", "status": "done"},
+      {"stage": "은행위·농업위 병합",    "date": "2026-06",    "status": "in_progress"},
+      {"stage": "상원 본회의 표결",     "date": "2026-Q3",    "status": "pending"},
+      {"stage": "하원 조율·표결",       "date": "TBD",        "status": "pending"},
+      {"stage": "대통령 서명",         "date": "TBD",        "status": "pending"}
+    ]
+  }
+}
