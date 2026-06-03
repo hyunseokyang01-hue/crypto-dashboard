@@ -1,7 +1,7 @@
 ﻿"""
 build_newsletter.py — 수집 모듈 3개 결과를 합쳐 HTML 뉴스레터 본문 한 장 생성 (Step 3, 범위 "가")
 설계: KRX update_html.py 대응 (조립만 담당. 수집은 각 모듈, 발송·자동화는 다음 단계)
-실행: python build_newsletter.py  →  crypto_newsletter.html 생성  →  start로 브라우저 확인
+실행: python build_newsletter.py  →  index.html 생성  →  start로 브라우저 확인
 """
 import datetime
 import os
@@ -126,7 +126,8 @@ def build_html():
 
 if __name__ == "__main__":
     html = build_html()
-    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "crypto_newsletter.html")
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"생성 완료 → {out_path}")
+
