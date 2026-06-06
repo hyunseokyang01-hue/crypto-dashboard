@@ -21,19 +21,19 @@
       
         <tr>
           <td style="padding:8px 10px;font-weight:700;border-top:1px solid #eee;">BTC</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$60,028.00</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-5.30%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-18.53%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-25.98%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-52.39%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$60,890.00</td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-2.38%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-16.93%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-24.78%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-51.71%</span></td>
         </tr>
         <tr>
           <td style="padding:8px 10px;font-weight:700;border-top:1px solid #eee;">ETH</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$1,521.20</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-12.48%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-24.63%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-34.48%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-69.24%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$1,563.28</td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-7.16%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-22.16%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-32.81%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-68.39%</span></td>
         </tr>
     </table>
 
@@ -50,7 +50,7 @@
       type: "line",
       data: {
         labels: ["05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06", "06-06"],
-        datasets: [{ label: "BTC (USD)", data: [73751.07, 73593.37, 71360.33, 66649.86, 64021.89, 63796.25, 60921.79, 60074.32],
+        datasets: [{ label: "BTC (USD)", data: [73751.07, 73593.37, 71360.33, 66649.86, 64021.89, 63796.25, 60921.79, 60877.99],
           borderColor: "#f7931a", backgroundColor: "rgba(247,147,26,0.08)",
           borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, tension: 0.3 }]
       },
@@ -70,7 +70,7 @@
       type: "line",
       data: {
         labels: ["05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06", "06-06"],
-        datasets: [{ label: "ETH (USD)", data: [2019.18, 2003.97, 2003.37, 1856.05, 1811.35, 1769.18, 1580.62, 1521.2],
+        datasets: [{ label: "ETH (USD)", data: [2019.18, 2003.97, 2003.37, 1856.05, 1811.35, 1769.18, 1580.62, 1563.28],
           borderColor: "#627eea", backgroundColor: "rgba(98,126,234,0.08)",
           borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, tension: 0.3 }]
       },
@@ -86,7 +86,6 @@
       }
     };
 
-    // 포인트 위 시세 레이블 플러그인
     const labelPlugin = {
       id: "pointLabels",
       afterDatasetsDraw(chart) {
@@ -148,7 +147,7 @@
     </div>
     <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
       <div style="font-size:13px;color:#888;">펀딩비 (참고)</div>
-      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">BTCUSDT -0.0010% · ETHUSDT -0.0170%</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">수집 불가</div>
       <div style="font-size:11px;color:#aaa;">롱/숏 과열 — 장기엔 참고만</div>
     </div>
     <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
@@ -307,16 +306,12 @@
               <span style="color:#aaa;font-size:11px;"> · CoinDesk · 한국어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxPQWkzUlRZcF9xdzNOMllCOEM5V0RJc2NXSy1Ebll2T2NQcUw1N0VIU2l6SFhseGY2bkg2RTBONUtUWGhGck9peEQ0VC1MSk5JUDFGR0JmRW1VQk10a2wtUjF6WUE0ZWRLenZscUVoeWEtdkt3QzI1UURjc2tXb21wWGxZQ2poX2lZZC05dnpHallrQVJ4dENJVHpGUW1NNERxM3NXSUFHd0xHUkFDRVNuVzF3NFBKQVFGYXVzM1hpSk1zZXVoRGhHVHAzeDRyZUotR1Bv?oc=5" style="color:#1a4ba8;text-decoration:none;">클라리티 법안의 존폐는 미국 상원이 비암호화폐 관련 업무를 많이 처리하는 데 달려 있다 - CoinDesk</a>
-              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 한국어</span>
+              <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxNM01GOXpPQkpveldmZUt3cDlfTG9wMnVONWYzYnktQ1lKckVEQVQtaFotVXl4R3RZdVVNejViWDlyaWdmelJLRzFrOGlZTmFwSjAzMVFNN1JSWTlfa2xsTDRSYllZclhmN1JDQ1NDWUhsN2JNZk9SNURkX2NBN01MLVhGV0JlLXpsNGJpWVJiS3RyLTgyaUcxck5mSHBpVlpibmloWU94Wlphb2NYVDJRblNxWk4tSXJKcWphUExfYVpfM3ZW?oc=5" style="color:#1a4ba8;text-decoration:none;">U.S. House tax committee weighs crypto bills, including relief for small transactions - CoinDesk</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPZnZ3V0dqdi13a3Nmd2dCb3ZYaEpJcUlFSkp1VnhzcTVsajNjSTZmMTVULU1yQkNxU1pmQWhIZlVXbG5RV2V2VEJJSWNiTDJ2Yi02Smc0Qmg2RkhmTzFZSHVYSTVkSUxxc1ZYNHFaVTEzMGlid1pqcXZmRlZEYUNfT1Y3MlpuVDhQOWlfUlhwWlVuUzdNQUVHb2lzS3VQUkIxRkthZnlUVk4zVVYyUjVDSmduUUlpeHNqRy1SbFBIU2FhUzkwcGZwS2dQTGVmZ29LUmFld3hMSEpBZFg2a3c?oc=5" style="color:#1a4ba8;text-decoration:none;">Next up, taxes: Crypto tax legislation circulated ahead of House Ways and Means Committee hearing next week - The Block</a>
               <span style="color:#aaa;font-size:11px;"> · The Block · 영어</span>
-            </li>
-            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxNM01GOXpPQkpveldmZUt3cDlfTG9wMnVONWYzYnktQ1lKckVEQVQtaFotVXl4R3RZdVVNejViWDlyaWdmelJLRzFrOGlZTmFwSjAzMVFNN1JSWTlfa2xsTDRSYllZclhmN1JDQ1NDWUhsN2JNZk9SNURkX2NBN01MLVhGV0JlLXpsNGJpWVJiS3RyLTgyaUcxck5mSHBpVlpibmloWU94Wlphb2NYVDJRblNxWk4tSXJKcWphUExfYVpfM3ZW?oc=5" style="color:#1a4ba8;text-decoration:none;">U.S. House tax committee weighs crypto bills, including relief for small transactions - CoinDesk</a>
-              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE8xWDAwcjczSUljNEIzZXJuZ1gyTlNBeDBoaVFGMEhOSXNDanpSZVFGMGFvSXNnb2ZJTE56RjFhU2k2ZzlqV1FIbzBJUDcwS1Nha3ZFNW12T1ZnT0pYNV9faGZZb1JmYWIzNDd4SlZyRVY1a3kzZk93X2xqOA?oc=5" style="color:#1a4ba8;text-decoration:none;">Congress Seeks Clarity on Crypto Tax Rules - Legis1</a>
@@ -365,6 +360,10 @@
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOel9lNTRlU1dXRkdTZnJkRGNSR3Jhbmo4blBFeU1uRFV1V09ZY3ZPbG50UmpCYms3bnNLTlRlcWczZUU1YkNNenEya1pGQjhUT2psMkpOV3RxMW84aUZCOXhrMDNKcUUyRTc3eEt3blMwem80YXRQbXB5cmNwNk9Sdng0Mm9QZ0hwQnNlenNPOHFnUmh4S2wxcTFIekk5ZUU?oc=5" style="color:#1a4ba8;text-decoration:none;">ETF Flows, Geopolitics Continue To Drag Down Crypto Prices - RTTNews</a>
               <span style="color:#aaa;font-size:11px;"> · RTTNews · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPaFJfaVpIeV8tOWJxclhPMDZpdXQzOXFQa244eklBXzVuQldpNl9IY3pYQnhvSzQybFJBU0dDUl9NZUtGRmEwUXBsUGdqWVBpNHEwZVZkeUhKVjZvLXRacTIwUzBLRUlJSlZqdE1PUFg4Z0J4UVBnQk9hZUcwRGtVUW5PSUdrcElpUlVuS2w0Q0doN2RrSVg0TERFRWhmRjRJU005RDM0RENIOFlsckV6dDJjNW9JanBBUk10NmROUWxuZw?oc=5" style="color:#1a4ba8;text-decoration:none;">Crypto Prices Today: Bitcoin Holds Above $70K as Strategy Sells BTC and CME Launches 24/7 Trading - Meyka</a>
+              <span style="color:#aaa;font-size:11px;"> · Meyka · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5UQk1Ob25EcXVwMDVJT1BWY0JQbGpNalUzVUc1dGNJMkd5UzFFWVRtQjBqSVBBc0JEaXBwZUo1MWtNdXozaEFWbl9DSFpPQzBTRUo3OTRIbTZOZmZLSWZxUXBZYnVMTUg3M0k2UHJtOFZFRVNwQlk3T0x2QTQydw?oc=5" style="color:#1a4ba8;text-decoration:none;">ビットコインの今後・将来性は？2026年6月最新価格予想 - Coinspeaker</a>
