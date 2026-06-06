@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><title>크립토 트렌드 뉴스레터</title></head>
-<body style="font-family:'Malgun Gothic',sans-serif;background:#fff;padding:24px;max-width:760px;margin:0 auto;color:#222;">
+<html lang="ko"><head>
+<meta charset="utf-8">
+<title>크립토 트렌드 뉴스레터</title>
+</head>
+<body style="font-family:'Malgun Gothic',sans-serif;background:#fff;padding:24px;max-width:860px;margin:0 auto;color:#222;">
   <h1 style="font-size:22px;color:#111;margin-bottom:2px;">🪙 크립토 중장기 트렌드 뉴스레터</h1>
-  <div style="font-size:12px;color:#999;margin-bottom:8px;">2026-06-03 · 10년 보유 관점 · 트렌드 파악용</div>
+  <div style="font-size:12px;color:#999;margin-bottom:8px;">2026-06-06 · 10년 보유 관점 · 트렌드 파악용</div>
   
     <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">① 시세 · 변동성</h2>
     <div style="font-size:12px;color:#888;margin:6px 0 14px;">모든 판단의 기준선 — 7일/30일 추세로 지금 위치 확인</div>
     <table style="width:100%;border-collapse:collapse;font-size:13px;">
       <tr style="background:#f0f1f3;color:#555;font-size:12px;">
         <th style="padding:8px 10px;text-align:left;">코인</th>
-        <th style="padding:8px 10px;text-align:right;">현재가(KRW)</th>
+        <th style="padding:8px 10px;text-align:right;">현재가(USD)</th>
         <th style="padding:8px 10px;text-align:right;">24h</th>
         <th style="padding:8px 10px;text-align:right;">7d</th>
         <th style="padding:8px 10px;text-align:right;">30d</th>
@@ -18,44 +21,201 @@
       
         <tr>
           <td style="padding:8px 10px;font-weight:700;border-top:1px solid #eee;">BTC</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">100,587,486</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-6.47%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-11.79%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-14.17%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-43.44%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$60,028.00</td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-5.30%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-18.53%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-25.98%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-52.39%</span></td>
         </tr>
         <tr>
           <td style="padding:8px 10px;font-weight:700;border-top:1px solid #eee;">ETH</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">2,802,150</td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-7.57%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-10.12%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-18.92%</span></td>
-          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-59.07%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;">$1,521.20</td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-12.48%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-24.63%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-34.48%</span></td>
+          <td style="padding:8px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-69.24%</span></td>
         </tr>
     </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div style="margin-top:24px;">
+      <canvas id="chartBTC" style="width:100%;height:300px;"></canvas>
+    </div>
+    <div style="margin-top:24px;">
+      <canvas id="chartETH" style="width:100%;height:300px;"></canvas>
+    </div>
+    <script>
+    const btcCfg = {
+      type: "line",
+      data: {
+        labels: ["05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06", "06-06"],
+        datasets: [{ label: "BTC (USD)", data: [73751.07, 73593.37, 71360.33, 66649.86, 64021.89, 63796.25, 60921.79, 60074.32],
+          borderColor: "#f7931a", backgroundColor: "rgba(247,147,26,0.08)",
+          borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, tension: 0.3 }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          tooltip: { callbacks: { label: ctx => "$" + (ctx.parsed.y/1000).toFixed(1) + "K" } },
+          datalabels: { display: false }
+        },
+        scales: {
+          y: { ticks: { callback: v => "$" + (v/1000).toFixed(1) + "K" } }
+        }
+      }
+    };
+    const ethCfg = {
+      type: "line",
+      data: {
+        labels: ["05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06", "06-06"],
+        datasets: [{ label: "ETH (USD)", data: [2019.18, 2003.97, 2003.37, 1856.05, 1811.35, 1769.18, 1580.62, 1521.2],
+          borderColor: "#627eea", backgroundColor: "rgba(98,126,234,0.08)",
+          borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, tension: 0.3 }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          tooltip: { callbacks: { label: ctx => "$" + (ctx.parsed.y/1000).toFixed(1) + "K" } }
+        },
+        scales: {
+          y: { ticks: { callback: v => "$" + (v/1000).toFixed(1) + "K" } }
+        }
+      }
+    };
+
+    // 포인트 위 시세 레이블 플러그인
+    const labelPlugin = {
+      id: "pointLabels",
+      afterDatasetsDraw(chart) {
+        const ctx = chart.ctx;
+        chart.data.datasets.forEach((ds, di) => {
+          const meta = chart.getDatasetMeta(di);
+          meta.data.forEach((pt, i) => {
+            const val = ds.data[i];
+            if (val == null) return;
+            const txt = "$" + (val/1000).toFixed(1) + "K";
+            ctx.save();
+            ctx.font = "bold 10px sans-serif";
+            ctx.fillStyle = ds.borderColor;
+            ctx.textAlign = "center";
+            ctx.fillText(txt, pt.x, pt.y - 8);
+            ctx.restore();
+          });
+        });
+      }
+    };
+
+    new Chart(document.getElementById("chartBTC"), { ...btcCfg, plugins: [labelPlugin] });
+    new Chart(document.getElementById("chartETH"), { ...ethCfg, plugins: [labelPlugin] });
+    </script>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:13px;font-weight:700;color:#555;margin-bottom:6px;">크립토 관련주</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <tr style="background:#f0f1f3;color:#555;font-size:12px;">
+          <th style="padding:6px 10px;text-align:left;">심볼</th>
+          <th style="padding:6px 10px;text-align:right;">현재가(USD)</th>
+          <th style="padding:6px 10px;text-align:right;">전일대비</th>
+        </tr>
+        
+        <tr>
+          <td style="padding:6px 10px;border-top:1px solid #eee;">COIN</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;">$152.40</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-7.15%</span></td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px;border-top:1px solid #eee;">HOOD</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;">$82.47</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-6.63%</span></td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px;border-top:1px solid #eee;">CRCL</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;">$80.28</td>
+          <td style="padding:6px 10px;text-align:right;border-top:1px solid #eee;"><span style="color:#c0392b;font-weight:600;">-11.33%</span></td>
+        </tr>
+      </table>
+    </div>
   
-    <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">② 시장 심리 · 유동성 · 사이클</h2>
+    <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">② 시장 심리 · 유동성</h2>
     
     <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
       <div style="font-size:13px;color:#888;">공포탐욕지수</div>
-      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">11 (Extreme Fear)</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">12 (Extreme Fear)</div>
       <div style="font-size:11px;color:#aaa;">극단 공포=누적 / 극단 탐욕=분산</div>
     </div>
     <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
       <div style="font-size:13px;color:#888;">펀딩비 (참고)</div>
-      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">BTCUSDT +0.0069% · ETHUSDT +0.0039%</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">BTCUSDT -0.0010% · ETHUSDT -0.0170%</div>
       <div style="font-size:11px;color:#aaa;">롱/숏 과열 — 장기엔 참고만</div>
     </div>
     <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
       <div style="font-size:13px;color:#888;">스테이블코인 시총</div>
-      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">$317.8B</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">$315.0B</div>
       <div style="font-size:11px;color:#aaa;">시장 대기 매수 유동성 프록시</div>
     </div>
-    <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
-      <div style="font-size:13px;color:#888;">다음 반감기</div>
-      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">D-687  (2028-04-20)</div>
-      <div style="font-size:11px;color:#aaa;">4년 주기 사이클 앵커 [추정]</div>
+
+    <div style="display:flex;gap:16px;margin-top:16px;">
+      <div style="flex:1;"><canvas id="chartFG"></canvas></div>
+      <div style="flex:1;"><canvas id="chartST"></canvas></div>
     </div>
+    <script>
+    new Chart(document.getElementById("chartFG"), {
+      type: "line",
+      data: {
+        labels: ["05-08", "05-09", "05-10", "05-11", "05-12", "05-13", "05-14", "05-15", "05-16", "05-17", "05-18", "05-19", "05-20", "05-21", "05-22", "05-23", "05-24", "05-25", "05-26", "05-27", "05-28", "05-29", "05-30", "05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06"],
+        datasets: [{ label: "공포탐욕 (30일)", data: [38, 38, 47, 48, 49, 42, 34, 43, 31, 27, 28, 25, 27, 29, 28, 28, 25, 30, 34, 25, 22, 23, 23, 28, 29, 23, 11, 12, 12, 12],
+          borderColor: "#e74c3c", backgroundColor: "rgba(231,76,60,0.08)",
+          borderWidth: 2, pointRadius: 1, tension: 0.3 }]
+      },
+      options: { plugins: { legend: { display: true } }, scales: { y: { min: 0, max: 100 } } }
+    });
+    new Chart(document.getElementById("chartST"), {
+      type: "line",
+      data: {
+        labels: ["05-08", "05-09", "05-10", "05-11", "05-12", "05-13", "05-14", "05-15", "05-16", "05-17", "05-18", "05-19", "05-20", "05-21", "05-22", "05-23", "05-24", "05-25", "05-26", "05-27", "05-28", "05-29", "05-30", "05-31", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06"],
+        datasets: [{ label: "스테이블 시총 (B$)", data: [321.1, 319.7, 320.5, 320.7, 320.9, 320.7, 320.4, 320.6, 321.3, 321.4, 321.4, 321.4, 321.6, 320.3, 321.1, 321.2, 321.1, 320.9, 320.8, 320.9, 320.2, 319.2, 318.6, 318.4, 318.2, 318.2, 317.7, 316.8, 315.5, 315.0],
+          borderColor: "#27ae60", backgroundColor: "rgba(39,174,96,0.08)",
+          borderWidth: 2, pointRadius: 1, tension: 0.3 }]
+      },
+      options: { plugins: { legend: { display: true } } }
+    });
+    </script>
+  
+    <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">③ 반감기 사이클</h2>
+    <div style="font-size:12px;color:#888;margin:6px 0 14px;">4년 주기 포지션 확인 — 지금 사이클 어디쯤?</div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:16px;margin-bottom:8px;">
+      <div style="font-size:13px;color:#555;margin-bottom:8px;">사이클 진행률 53.2%</div>
+      <div style="background:#e0e0e0;border-radius:4px;height:12px;overflow:hidden;">
+        <div style="background:#e74c3c;width:53.2%;height:100%;border-radius:4px;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#aaa;margin-top:4px;">
+        <span>반감기</span><span>다음 반감기</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+      
+    <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
+      <div style="font-size:13px;color:#888;">경과일</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">777일</div>
+      <div style="font-size:11px;color:#aaa;"></div>
+    </div>
+      
+    <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
+      <div style="font-size:13px;color:#888;">D-day</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">D-684  (2028-04-20)</div>
+      <div style="font-size:11px;color:#aaa;">[추정]</div>
+    </div>
+      
+    <div style="border:1px solid #e4e6e9;border-radius:8px;padding:14px 16px;margin:10px 0;">
+      <div style="font-size:13px;color:#888;">현재 단계</div>
+      <div style="font-size:17px;font-weight:700;color:#111;margin:4px 0;">상승기</div>
+      <div style="font-size:11px;color:#aaa;"></div>
+    </div>
+    </div>
+    <div style="font-size:11px;color:#aaa;margin-top:8px;">⚠ 반감기 사이클은 과거 패턴 참고용. 미래 수익 보장 없음.</div>
   <!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8">
 <title>법안 타임라인</title></head>
@@ -136,55 +296,75 @@
         </div>
 </body></html>
   
-    <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">④ 뉴스 헤드라인</h2>
+    <h2 style="font-size:18px;color:#111;border-bottom:2px solid #111;padding-bottom:8px;margin-top:32px;">⑤ 뉴스 헤드라인</h2>
     <div style="font-size:12px;color:#888;margin:6px 0 14px;">법률·기술·지정학 중장기 내러티브 (최근 7일)</div>
     
         <div style="margin-bottom:16px;">
           <div style="font-weight:700;color:#111;font-size:14px;margin-bottom:4px;">법률</div>
           <ul style="margin:0;padding-left:18px;">
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE9heXdQMG9DX1ZKQkhPb185UXlRUndTOWpmSmQ0dExHeUVmWDNXM2V2QTRBTy1iaWR5eGstaXZ3Q2I0WGRqcEtaQktiMTk3aUo2VXJDbGt30gFbQVVfeXFMTUgzLVZ2TlZWMnhaSndxcEdGaE94cUhnYUN3OFQ2M3htSGk5WG0yZEVhaGV3bFB4TlRneXdOVTMxSDVVYzNJaU9rT0E3QUp5RllNbkFoc0VPbUh3SQ?oc=5" style="color:#1a4ba8;text-decoration:none;">트럼프, 크립토 시장구조 개편 재점화…CLARITY Act 상원 공방 본격화 - tokenpost.kr</a>
-              <span style="color:#aaa;font-size:11px;"> · tokenpost.kr · 한국어</span>
+              <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxOVzV6NzZtWERTSERxcXNRcVkzbVNwakdFVlZFMGc1V1dJVFdkMDR5RzB5LWlsNVowUFBybElBYVNvYlZodEZwVHd0b0F2NEtYZEdVaFVEZ0RscUFwTVJhdHJFLVh0eTdaVWZjS2VIbE4zLVZ6QlVwdDNwVHhCQzN4R1BUNGlVQ1kxTl9feExUdjBfTkZSeWJUa0lSZlAzTG9DcXBjN1RscWhHYUVxblMwZENxMld5MXpoRHhFdkdPRFVYUzA4X0tXcEpzNXpjMlI1?oc=5" style="color:#1a4ba8;text-decoration:none;">상원 절차가 진전되면서 악성 행위자 규정으로 주목받는 암호화폐 명확성 법안 - CoinDesk</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 한국어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE1vUFh0dURYaHhIeVp5SUhQOW12aHloNFdwcTBjcTRkVi1pR0RocFBaNGlkYjBudi1hNDk3a0RzMzZEZjhGRFVNb255UVl4dmpvYlVnNHk3ZzlmcVV3eWfSAWNBVV95cUxNaGktNEQtaWxUVUJCanNYSE1zVENBbHZVVGFseFJFYjUybVIzUmQza19tb3JTWXdWVGQ5Z2c4aXJRTjlRUUROV0lhT1p3US0tQnFIYzNiQjJ3bFE5T1U5cTEzbGs?oc=5" style="color:#1a4ba8;text-decoration:none;">The US Congress to Advance Bipartisan Crypto Tax Bill, Potentially the Next Major Legislation After the CLARITY Act - Bitget</a>
-              <span style="color:#aaa;font-size:11px;"> · Bitget · 영어</span>
+              <a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxPQWkzUlRZcF9xdzNOMllCOEM5V0RJc2NXSy1Ebll2T2NQcUw1N0VIU2l6SFhseGY2bkg2RTBONUtUWGhGck9peEQ0VC1MSk5JUDFGR0JmRW1VQk10a2wtUjF6WUE0ZWRLenZscUVoeWEtdkt3QzI1UURjc2tXb21wWGxZQ2poX2lZZC05dnpHallrQVJ4dENJVHpGUW1NNERxM3NXSUFHd0xHUkFDRVNuVzF3NFBKQVFGYXVzM1hpSk1zZXVoRGhHVHAzeDRyZUotR1Bv?oc=5" style="color:#1a4ba8;text-decoration:none;">클라리티 법안의 존폐는 미국 상원이 비암호화폐 관련 업무를 많이 처리하는 데 달려 있다 - CoinDesk</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 한국어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE10M2pTVi02MzdfeE5aQXJBVWE3NkRac0hBazZ6M2FuMWEydWFfaWd0Slp2Z1d4SW80N0dUTnZGaUhVWEt0TGtvWWhsdk02RHUzNWNHUGlUWVI3SlU?oc=5" style="color:#1a4ba8;text-decoration:none;">Daily Observation of Cryptocurrency Concept Stocks: The PARITY Act Takes Over Tax Reconstruction, and the "Three-Dimensional Puzzle" of U.S. Cryptocurrency Regulation is Coming to Light - 链捕手ChainCatcher</a>
-              <span style="color:#aaa;font-size:11px;"> · 链捕手ChainCatcher · 영어</span>
+              <a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPZnZ3V0dqdi13a3Nmd2dCb3ZYaEpJcUlFSkp1VnhzcTVsajNjSTZmMTVULU1yQkNxU1pmQWhIZlVXbG5RV2V2VEJJSWNiTDJ2Yi02Smc0Qmg2RkhmTzFZSHVYSTVkSUxxc1ZYNHFaVTEzMGlid1pqcXZmRlZEYUNfT1Y3MlpuVDhQOWlfUlhwWlVuUzdNQUVHb2lzS3VQUkIxRkthZnlUVk4zVVYyUjVDSmduUUlpeHNqRy1SbFBIU2FhUzkwcGZwS2dQTGVmZ29LUmFld3hMSEpBZFg2a3c?oc=5" style="color:#1a4ba8;text-decoration:none;">Next up, taxes: Crypto tax legislation circulated ahead of House Ways and Means Committee hearing next week - The Block</a>
+              <span style="color:#aaa;font-size:11px;"> · The Block · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxPZlpPXy1ZenhYLWpCS3N5NVN3Z1BKcFlmTVFwX2x5a1NWMHpCTXR3cXhPV08wS2VXUE85Z2lfVnBKSERQcFBSR3N2YXd3UGtTRzBwM1ZLX1owT3ZkaUc0OXBqRHItZ2pZaVd3aHIxeXh0OWVKZ19XcDRzdHJjcTNYNTZsV2duMG9aZ1I4ME1ndUF3UUNGUlZ6VTJvS2xyb2sxQ0Z6LWRYNDJ4c2hCRHJOTWdfQUp0dHBwRTNRSGN6ajVrT245Z2c?oc=5" style="color:#1a4ba8;text-decoration:none;">How the House Financial Services Committee is taking on tokenization: State of Crypto - CoinDesk</a>
+              <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxNM01GOXpPQkpveldmZUt3cDlfTG9wMnVONWYzYnktQ1lKckVEQVQtaFotVXl4R3RZdVVNejViWDlyaWdmelJLRzFrOGlZTmFwSjAzMVFNN1JSWTlfa2xsTDRSYllZclhmN1JDQ1NDWUhsN2JNZk9SNURkX2NBN01MLVhGV0JlLXpsNGJpWVJiS3RyLTgyaUcxck5mSHBpVlpibmloWU94Wlphb2NYVDJRblNxWk4tSXJKcWphUExfYVpfM3ZW?oc=5" style="color:#1a4ba8;text-decoration:none;">U.S. House tax committee weighs crypto bills, including relief for small transactions - CoinDesk</a>
               <span style="color:#aaa;font-size:11px;"> · CoinDesk · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxQaW0yOE9qMHRDLV85RVd6ZkFkclFmNG9Mdm0tVzNxN0JNX1E3WkJza2U4TWtxemtSM0NNYk9XVHBWVEJDVjgwZ0ZlQ0pGanNJZjFOMWptS3dNYU4wWV9mVnZoS1ZkOUtMQ2hYQzlfNDh6aEpzVGFpRW15cW00enRYOXktaTA?oc=5" style="color:#1a4ba8;text-decoration:none;">Why The CLARITY Act Still Leaves Crypto Users Trapped - Coinfomania</a>
-              <span style="color:#aaa;font-size:11px;"> · Coinfomania · 영어</span>
+              <a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE8xWDAwcjczSUljNEIzZXJuZ1gyTlNBeDBoaVFGMEhOSXNDanpSZVFGMGFvSXNnb2ZJTE56RjFhU2k2ZzlqV1FIbzBJUDcwS1Nha3ZFNW12T1ZnT0pYNV9faGZZb1JmYWIzNDd4SlZyRVY1a3kzZk93X2xqOA?oc=5" style="color:#1a4ba8;text-decoration:none;">Congress Seeks Clarity on Crypto Tax Rules - Legis1</a>
+              <span style="color:#aaa;font-size:11px;"> · Legis1 · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNV2VuNE1IbnZxX0xnMG5CN2ZnZTR3MW1SVkxqY1RzanlST0VDQk5naXhYaXlUNjN6bnNNTVpoX0xTXzRIYlZFZjdJQWhvVjdmSEV2SUxxeGtrTVpfcFhFaDNaUXFBd1h3d3lNelRjWlRDMm83MHVORm9wZVVGY3FobEw4ZTlRYjNCVy1mbTM5RU5takxydjJSM1ZZcXZFRkNpSnhVX0xpTjhRMDh4TXRndTlnVnloQTQ0Vm5fTzhTbEI?oc=5" style="color:#1a4ba8;text-decoration:none;">Crypto tax proposals weighed ahead of Tuesday House hearing - TradingView</a>
+              <span style="color:#aaa;font-size:11px;"> · TradingView · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxOQm9JUFFaZnNBaFZDcldOSEM0bTMtWlN0V2tKeVRqdll6WVRzTTNmWnFydVN3eEZoZUJmb3NFM3hMb0l5ZnJ1cTg4c1djTXVuazJHMlRGb0xEVmVpWUdSLTdaajhydzRhMHh2S25OZHItb1BiOVZ1RF9Vc0RQN080LVNGblFXcllRQ3VyblEzTFctMFRrWTNlZm9paFJ0MTV0WVlpNUhnV2YxRTNheW5RVW9LZVdsMUlQNExWN05TQVhrSzFyY09zNDlkeW5uX2pp?oc=5" style="color:#1a4ba8;text-decoration:none;">悪質な行為者に対する規定で注目を集めるCrypto Clarity法案、上院での審議が進展 - CoinDesk</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 일본어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNOFFjdkJQdGliV0plQnNqblg2Mno4ZWRKYW1PQk05eUxFUlJzRUEyUm5VejBsV1F0OXVKcG9taUlPcUlneHhiTXh0d0FHZFg1SEhLa0hncTdzbTZNWE96TWtqejcybUdaS1g3aEtudU9zQzVWUlJOcHdtNmp3ZmdqMmhGRmpkektQYU8zQ2pqeDZUdzBLM1RJZUxpakZPRnk1NG82bUF1RjF5ZUVXcTcya3BvR0pxekNQbkVnNVNlOGZqMWhMdnNzag?oc=5" style="color:#1a4ba8;text-decoration:none;">米国下院歳入委員会、少額取引の救済を含む暗号通貨関連法案を検討 - CoinDesk</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinDesk · 일본어</span>
             </li></ul>
         </div>
         <div style="margin-bottom:16px;">
           <div style="font-weight:700;color:#111;font-size:14px;margin-bottom:4px;">기술</div>
           <ul style="margin:0;padding-left:18px;">
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMihwFBVV95cUxNSkJnUVNtUTRIcFVXMjNhWVloQmk0U242dVhYTC1xdC1fVTV6YlVCSklMRW5LblRlR3Y1VmhOYWl6UjRVQUR1aDN4VlVwMHhyb2h0X00zUGg5akM2Nk5kdFhrWXh5WDJQaktFUWsyRGdFVnRXOFhBMC1fQXJQbnAwZWxBcWtscHM?oc=5" style="color:#1a4ba8;text-decoration:none;">Stellar price prediction 2026-2030: the compliance-first bet - crypto.news</a>
-              <span style="color:#aaa;font-size:11px;"> · crypto.news · 영어</span>
-            </li>
-            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9hVEZJQWFNV01EN0ZNM1JTdVdfOFJIcEFsUTZYUmlfZXpHWlJyd2tRVk9SLW0zQ1hfdnZvX0N2UW1TZ0ZjbGd3VXpkb2tycjlHdEcyWV8xbWNQOGV0UnlIbGY1SlRrWnRGdDNFOXNaMDJNYmVXRi01a1FjM1hpZGc?oc=5" style="color:#1a4ba8;text-decoration:none;">Pantera Capital Recap: The Largest Liquidation Wave in History, Token Plunge of 60%, What's Next for the Market in 2026? - PANews</a>
               <span style="color:#aaa;font-size:11px;"> · PANews · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9RcmNPTTMzbGJKWTJQcUR3d2JfcS1PUG05Nlo0dTZuRVUxSk1SQ3ZyanA3UkFPb3k4bThaZzRkLVdJRTZ2RVd5c2dZbHlJV3ZTZzQ2ejVVbXhvOU1IYUZzRkQ5Wlo?oc=5" style="color:#1a4ba8;text-decoration:none;">ONDO Finance Explained: Price, Token, RWA, Founder & Future (2026 Guide) - The Crypto Times</a>
-              <span style="color:#aaa;font-size:11px;"> · The Crypto Times · 영어</span>
+              <a href="https://news.google.com/rss/articles/CBMihwFBVV95cUxNSkJnUVNtUTRIcFVXMjNhWVloQmk0U242dVhYTC1xdC1fVTV6YlVCSklMRW5LblRlR3Y1VmhOYWl6UjRVQUR1aDN4VlVwMHhyb2h0X00zUGg5akM2Nk5kdFhrWXh5WDJQaktFUWsyRGdFVnRXOFhBMC1fQXJQbnAwZWxBcWtscHM?oc=5" style="color:#1a4ba8;text-decoration:none;">Stellar price prediction 2026-2030: the compliance-first bet - crypto.news</a>
+              <span style="color:#aaa;font-size:11px;"> · crypto.news · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPTWdnUlJRUEFmeVh1Zmk5REMxNHRjb0tYUFVQdE1WZHh3RlJMME4tTHEwblNpSjNGX2d5QTBJb3VYV0dXYlNyTE43WTV1OW1tdTZLQ1g1dnhmcW9GTWhBQk5nQlY3cTdnLWl4amdxSWFuYVUtX2JlVkZHb1gwQl9NY084cmNBV2wwZWQxYTFMYw?oc=5" style="color:#1a4ba8;text-decoration:none;">Everything You Own Will Live On-Chain Thanks to RWA Tokenization - CoinMarketCap</a>
+              <span style="color:#aaa;font-size:11px;"> · CoinMarketCap · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE1Jc3RDOVlhakZIaFhyeklkOTRSVnBSU3NodnlUN0NlVGNGWHU1cTAxajRRd1dqblBsOHJ2Nk1xX1A0RmNfNjJ0WjhIVmxIWEtZNy10SVJMd0ZBT3hjVm9xREVMZlZ4NE1zVVZ3N3ZTZWhZeVlkLW9JTWUtWmJTRDA?oc=5" style="color:#1a4ba8;text-decoration:none;">The Hong Kong Monetary Authority has established an expert panel on tokenized bonds; Stripe, Visa, and Mastercard are jointly preparing a stablecoin platform. - PANews</a>
+              <span style="color:#aaa;font-size:11px;"> · PANews · 영어</span>
             </li></ul>
         </div>
         <div style="margin-bottom:16px;">
           <div style="font-weight:700;color:#111;font-size:14px;margin-bottom:4px;">지정학</div>
           <ul style="margin:0;padding-left:18px;">
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
-              <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPaFJfaVpIeV8tOWJxclhPMDZpdXQzOXFQa244eklBXzVuQldpNl9IY3pYQnhvSzQybFJBU0dDUl9NZUtGRmEwUXBsUGdqWVBpNHEwZVZkeUhKVjZvLXRacTIwUzBLRUlJSlZqdE1PUFg4Z0J4UVBnQk9hZUcwRGtVUW5PSUdrcElpUlVuS2w0Q0doN2RrSVg0TERFRWhmRjRJU005RDM0RENIOFlsckV6dDJjNW9JanBBUk10NmROUWxuZw?oc=5" style="color:#1a4ba8;text-decoration:none;">Crypto Prices Today: Bitcoin Holds Above $70K as Strategy Sells BTC and CME Launches 24/7 Trading - Meyka</a>
-              <span style="color:#aaa;font-size:11px;"> · Meyka · 영어</span>
+              <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxNbGVpalZfcEk3R0llS29hS1k5U2hWbUtmbUlkRnpsNzl1SnUwTnBzZDVCcDFFOEhlczQtbWR6RHhvcDItNk9na2U0aFBMZlFmdFlaLWptRDBYNDNJdFZXdnRfVzZuRTgtYVo4MDNzaTNmaC1ldWJndTViazF2Z1pBMl9YelIwV2kya1RqMFU3VGM3elUyeXFkOXRqZUkzai1xbHJua2FSYjlvRGM3QXc0VG9rU3NTYUxhOGthTA?oc=5" style="color:#1a4ba8;text-decoration:none;">CLARITY Act: Why Bessent refuses to let the case drag on - Cointribune</a>
+              <span style="color:#aaa;font-size:11px;"> · Cointribune · 영어</span>
+            </li>
+            <li style="margin:7px 0;font-size:13px;line-height:1.4;">
+              <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOel9lNTRlU1dXRkdTZnJkRGNSR3Jhbmo4blBFeU1uRFV1V09ZY3ZPbG50UmpCYms3bnNLTlRlcWczZUU1YkNNenEya1pGQjhUT2psMkpOV3RxMW84aUZCOXhrMDNKcUUyRTc3eEt3blMwem80YXRQbXB5cmNwNk9Sdng0Mm9QZ0hwQnNlenNPOHFnUmh4S2wxcTFIekk5ZUU?oc=5" style="color:#1a4ba8;text-decoration:none;">ETF Flows, Geopolitics Continue To Drag Down Crypto Prices - RTTNews</a>
+              <span style="color:#aaa;font-size:11px;"> · RTTNews · 영어</span>
             </li>
             <li style="margin:7px 0;font-size:13px;line-height:1.4;">
               <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5UQk1Ob25EcXVwMDVJT1BWY0JQbGpNalUzVUc1dGNJMkd5UzFFWVRtQjBqSVBBc0JEaXBwZUo1MWtNdXozaEFWbl9DSFpPQzBTRUo3OTRIbTZOZmZLSWZxUXBZYnVMTUg3M0k2UHJtOFZFRVNwQlk3T0x2QTQydw?oc=5" style="color:#1a4ba8;text-decoration:none;">ビットコインの今後・将来性は？2026年6月最新価格予想 - Coinspeaker</a>

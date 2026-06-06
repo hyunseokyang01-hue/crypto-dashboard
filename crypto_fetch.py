@@ -8,7 +8,7 @@ import requests
 import datetime
 
 # ── 설정 ─────────────────────────────────
-VS_CURRENCY = "krw"                        # 달러 기준이면 "usd"
+VS_CURRENCY = "usd"                        # 달러 기준이면 "usd"
 COIN_IDS = ["bitcoin", "ethereum"]         # CoinGecko 코인 id. 추가는 여기에
 FUNDING_SYMBOLS = ["BTCUSDT", "ETHUSDT"]   # Binance 선물 심볼
 NEXT_HALVING_DATE = datetime.date(2028, 4, 20)  # [추정] 다음 반감기
@@ -77,3 +77,105 @@ if __name__ == "__main__":
     print("=== 스테이블코인 시총 ==="); print(fetch_stablecoin_mcap())
     print("=== 펀딩비 ==="); print(fetch_funding_rates())
     print("=== 반감기 D-day ==="); print(halving_countdown())
+
+# ════════════════════════════════════════════════════════
+# [추가] 그래프용 시계열 + 주식 수집 (v2)
+# ════════════════════════════════════════════════════════
+import yfinance as yf
+
+STABLE_STOCKS = {"COIN": "코인베이스", "HOOD": "로빈후드", "CRCL": "써클"}
+LAST_HALVING_DATE = datetime.date(2024, 4, 20)   # [확정] 지난 반감기
+
+
+def fetch_price_series(coin_ids=COIN_IDS, vs=VS_CURRENCY, days=7):
+    """BTC/ETH 7일 일별 시세 — 그래프용. CoinGecko market_chart.
+    반환: {코인심볼: {"날짜": [...], "가격": [...]}}"""
+    out = {}
+    for cid in coin_ids:
+        url = f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart"
+        params = {"vs_currency": vs, "days": days, "interval": "daily"}
+        r = requests.get(url, params=params, timeout=TIMEOUT)
+        r.raise_for_status()
+        prices = r.json()["prices"]   # [[ts_ms, price], ...]
+        sym = "BTC" if cid == "bitcoin" else ("ETH" if cid == "ethereum" else cid.upper())
+        out[sym] = {
+            "날짜": [datetime.datetime.utcfromtimestamp(p[0] / 1000).strftime("%m-%d") for p in prices],
+            "가격": [round(p[1], 2) for p in prices],
+        }
+    return out
+
+
+def fetch_fear_greed_series(limit=30):
+    """공포탐욕 30일 추이 — 그래프용. alternative.me.
+    반환: {"날짜": [...], "값": [...]} (과거→현재 순)"""
+    r = requests.get(f"https://api.alternative.me/fng/?limit={limit}", timeout=TIMEOUT)
+    r.raise_for_status()
+    data = r.json()["data"]
+    data = list(reversed(data))   # API는 최신순 → 과거순으로 뒤집음
+    return {
+        "날짜": [datetime.datetime.utcfromtimestamp(int(d["timestamp"])).strftime("%m-%d") for d in data],
+        "값": [int(d["value"]) for d in data],
+    }
+
+
+def fetch_stablecoin_series(days=30):
+    """스테이블코인 시총 30일 추이 — 그래프용. DeFiLlama 히스토리 슬라이스.
+    반환: {"날짜": [...], "시총_B": [...]} (10억 달러 단위)"""
+    r = requests.get("https://stablecoins.llama.fi/stablecoincharts/all", timeout=TIMEOUT)
+    r.raise_for_status()
+    hist = r.json()[-days:]
+    return {
+        "날짜": [datetime.datetime.utcfromtimestamp(int(h["date"])).strftime("%m-%d") for h in hist],
+        "시총_B": [round(h["totalCirculating"]["peggedUSD"] / 1e9, 1) for h in hist],
+    }
+
+
+def fetch_stable_stocks(stocks=STABLE_STOCKS):
+    """스테이블코인 관련 상장주 시세 — yfinance. COIN/HOOD/CRCL.
+    반환: [{"티커","이름","현재가","전일대비%"}]. 실패 종목은 None 채움."""
+    out = []
+    for ticker, name in stocks.items():
+        try:
+            hist = yf.Ticker(ticker).history(period="5d", auto_adjust=True).dropna(subset=["Close"])
+            if len(hist) >= 2:
+                prev, last = float(hist["Close"].iloc[-2]), float(hist["Close"].iloc[-1])
+                chg = round((last - prev) / prev * 100, 2)
+            elif len(hist) == 1:
+                last, chg = float(hist["Close"].iloc[-1]), None
+            else:
+                last, chg = None, None
+            out.append({"티커": ticker, "이름": name, "현재가": round(last, 2) if last else None, "전일대비%": chg})
+        except Exception as e:
+            print(f"{ticker} 수집 실패: {e}")
+            out.append({"티커": ticker, "이름": name, "현재가": None, "전일대비%": None})
+    return out
+
+
+def halving_cycle(last=LAST_HALVING_DATE, target=NEXT_HALVING_DATE):
+    """반감기 사이클 — 진행률·경과일·단계 라벨. [추정일 기준]"""
+    today = datetime.date.today()
+    total = (target - last).days
+    elapsed = (today - last).days
+    pct = round(elapsed / total * 100, 1)
+    # 4구간 단계 라벨 (과거 사이클상 위치 참고용. 투자 신호 아님)
+    if pct < 25:   stage = "반감기 직후 (축적기)"
+    elif pct < 55: stage = "상승기"
+    elif pct < 80: stage = "과열·고점 구간"
+    else:          stage = "조정·바닥 구간"
+    return {
+        "지난반감기": last.isoformat(),
+        "다음반감기_추정": target.isoformat(),
+        "D-day": (target - today).days,
+        "경과일": elapsed,
+        "진행률%": pct,
+        "단계": stage,
+    }
+
+
+if __name__ == "__main__":
+    import json
+    print("=== 7일 시계열 ==="); print(json.dumps(fetch_price_series(), ensure_ascii=False, indent=2))
+    print("=== 공포탐욕 30일 ==="); print(fetch_fear_greed_series())
+    print("=== 스테이블 30일 ==="); print(fetch_stablecoin_series())
+    print("=== 관련주 ==="); print(fetch_stable_stocks())
+    print("=== 반감기 사이클 ==="); print(halving_cycle())
