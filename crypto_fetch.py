@@ -8,7 +8,7 @@ import requests
 import datetime
 
 # ── 설정 ─────────────────────────────────
-VS_CURRENCY = "krw"                        # 달러 기준이면 "usd"
+VS_CURRENCY = "usd"                        # 달러 기준이면 "usd"
 COIN_IDS = ["bitcoin", "ethereum"]         # CoinGecko 코인 id. 추가는 여기에
 FUNDING_SYMBOLS = ["BTCUSDT", "ETHUSDT"]   # Binance 선물 심볼
 NEXT_HALVING_DATE = datetime.date(2028, 4, 20)  # [추정] 다음 반감기
