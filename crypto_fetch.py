@@ -1,4 +1,4 @@
-@'
+$content = @'
 """
 crypto_fetch.py — 암호화폐 중장기(10년) 트렌드 지표 수집 (Step A)
 용도: run_crypto_daily.py에서 호출 → 결과 반환 → HTML/메일로 전달
@@ -9,7 +9,6 @@ import requests
 import datetime
 import yfinance as yf
 
-# ── 설정 ─────────────────────────────────
 VS_CURRENCY = "usd"
 COIN_IDS = ["bitcoin", "ethereum"]
 FUNDING_SYMBOLS = ["BTCUSDT", "ETHUSDT"]
@@ -20,7 +19,6 @@ TIMEOUT = 10
 
 
 def fetch_prices(coin_ids=COIN_IDS, vs=VS_CURRENCY):
-    """시세·변동성 — CoinGecko 공개 API."""
     url = "https://api.coingecko.com/api/v3/coins/markets"
     params = {"vs_currency": vs, "ids": ",".join(coin_ids),
               "price_change_percentage": "24h,7d,30d"}
@@ -40,7 +38,6 @@ def fetch_prices(coin_ids=COIN_IDS, vs=VS_CURRENCY):
 
 
 def fetch_fear_greed():
-    """공포탐욕지수 — alternative.me 공개 API."""
     r = requests.get("https://api.alternative.me/fng/?limit=1", timeout=TIMEOUT)
     r.raise_for_status()
     d = r.json()["data"][0]
@@ -48,7 +45,6 @@ def fetch_fear_greed():
 
 
 def fetch_stablecoin_mcap():
-    """스테이블코인 시총 — DeFiLlama 공개 API."""
     r = requests.get("https://stablecoins.llama.fi/stablecoincharts/all", timeout=TIMEOUT)
     r.raise_for_status()
     last = r.json()[-1]
@@ -57,7 +53,6 @@ def fetch_stablecoin_mcap():
 
 
 def fetch_funding_rates(symbols=FUNDING_SYMBOLS):
-    """펀딩비(참고용) — Binance 선물 공개 API."""
     out = []
     for sym in symbols:
         r = requests.get("https://fapi.binance.com/fapi/v1/premiumIndex",
@@ -69,14 +64,11 @@ def fetch_funding_rates(symbols=FUNDING_SYMBOLS):
 
 
 def halving_countdown(target=NEXT_HALVING_DATE):
-    """반감기 D-day [추정일 기준]"""
     return {"다음반감기_추정": target.isoformat(),
             "D-day": (target - datetime.date.today()).days}
 
 
 def fetch_price_series(coin_ids=COIN_IDS, vs=VS_CURRENCY, days=7):
-    """BTC/ETH 7일 일별 시세 — 그래프용. CoinGecko market_chart.
-    반환: {코인심볼: {"날짜": [...], "가격": [...]}}"""
     out = {}
     for cid in coin_ids:
         url = f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart"
@@ -86,15 +78,13 @@ def fetch_price_series(coin_ids=COIN_IDS, vs=VS_CURRENCY, days=7):
         prices = r.json()["prices"]
         sym = "BTC" if cid == "bitcoin" else ("ETH" if cid == "ethereum" else cid.upper())
         out[sym] = {
-            "날짜": [datetime.datetime.utcfromtimestamp(p[0] / 1000).strftime("%m-%d") for p in prices],
+            "날짜": [datetime.datetime.utcfromtimestamp(p[0]/1000).strftime("%m-%d") for p in prices],
             "가격": [round(p[1], 2) for p in prices],
         }
     return out
 
 
 def fetch_fear_greed_series(limit=30):
-    """공포탐욕 30일 추이 — 그래프용.
-    반환: {"날짜": [...], "값": [...]} (과거→현재 순)"""
     r = requests.get(f"https://api.alternative.me/fng/?limit={limit}", timeout=TIMEOUT)
     r.raise_for_status()
     data = list(reversed(r.json()["data"]))
@@ -105,20 +95,16 @@ def fetch_fear_greed_series(limit=30):
 
 
 def fetch_stablecoin_series(days=30):
-    """스테이블코인 시총 30일 추이 — 그래프용.
-    반환: {"날짜": [...], "시총_B": [...]}"""
     r = requests.get("https://stablecoins.llama.fi/stablecoincharts/all", timeout=TIMEOUT)
     r.raise_for_status()
     hist = r.json()[-days:]
     return {
         "날짜": [datetime.datetime.utcfromtimestamp(int(h["date"])).strftime("%m-%d") for h in hist],
-        "시총_B": [round(h["totalCirculating"]["peggedUSD"] / 1e9, 1) for h in hist],
+        "시총_B": [round(h["totalCirculating"]["peggedUSD"]/1e9, 1) for h in hist],
     }
 
 
 def fetch_stable_stocks(stocks=STABLE_STOCKS):
-    """크립토 관련주 시세 — yfinance. COIN/HOOD/CRCL.
-    반환: [{"티커","이름","현재가","전일대비%"}]"""
     out = []
     for ticker, name in stocks.items():
         try:
@@ -139,7 +125,6 @@ def fetch_stable_stocks(stocks=STABLE_STOCKS):
 
 
 def halving_cycle(last=LAST_HALVING_DATE, target=NEXT_HALVING_DATE):
-    """반감기 사이클 — 진행률·경과일·단계 라벨. [추정일 기준]"""
     today = datetime.date.today()
     total = (target - last).days
     elapsed = (today - last).days
@@ -156,18 +141,5 @@ def halving_cycle(last=LAST_HALVING_DATE, target=NEXT_HALVING_DATE):
         "진행률%": pct,
         "단계": stage,
     }
-
-
-if __name__ == "__main__":
-    import json
-    print("=== 시세·변동성 ==="); print(json.dumps(fetch_prices(), ensure_ascii=False, indent=2))
-    print("=== 공포탐욕지수 ==="); print(fetch_fear_greed())
-    print("=== 스테이블코인 시총 ==="); print(fetch_stablecoin_mcap())
-    print("=== 펀딩비 ==="); print(fetch_funding_rates())
-    print("=== 반감기 D-day ==="); print(halving_countdown())
-    print("=== 7일 시계열 ==="); print(json.dumps(fetch_price_series(), ensure_ascii=False, indent=2))
-    print("=== 공포탐욕 30일 ==="); print(fetch_fear_greed_series())
-    print("=== 스테이블 30일 ==="); print(fetch_stablecoin_series())
-    print("=== 관련주 ==="); print(fetch_stable_stocks())
-    print("=== 반감기 사이클 ==="); print(halving_cycle())
-'@ | Out-File -FilePath crypto_fetch.py -Encoding utf8
+'@
+[System.IO.File]::WriteAllText("C:\Users\user\dev\crypto-dashboard\crypto_fetch.py", $content, [System.Text.Encoding]::UTF8)
