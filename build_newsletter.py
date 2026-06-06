@@ -1,4 +1,4 @@
-﻿"""
+"""
 build_newsletter.py v2 — USD 시세 + BTC/ETH 그래프 세로 배치 2배 크기 + 포인트 시세 표시
 """
 import datetime, os, json
@@ -117,7 +117,6 @@ def _section_prices(prices, price_series, stable_stocks):
       }}
     }};
 
-    // 포인트 위 시세 레이블 플러그인
     const labelPlugin = {{
       id: "pointLabels",
       afterDatasetsDraw(chart) {{
@@ -156,7 +155,11 @@ def _section_prices(prices, price_series, stable_stocks):
     </div>'''
 
 def _section_indicators(fg, fg_series, funding, stable, stable_series):
-    funding_body = " · ".join(f"{f['심볼']} {f['펀딩비%']:+.4f}%" for f in funding)
+    if funding:
+        funding_body = " · ".join(f"{f['심볼']} {f['펀딩비%']:+.4f}%" for f in funding)
+    else:
+        funding_body = "수집 불가"
+
     stable_b = stable["총시총_USD"] / 1e9
 
     fg_labels = json.dumps(fg_series.get("날짜", []))
@@ -264,7 +267,11 @@ def build_html():
     fg_series     = crypto_fetch.fetch_fear_greed_series()
     stable        = crypto_fetch.fetch_stablecoin_mcap()
     stable_series = crypto_fetch.fetch_stablecoin_series()
-    funding       = crypto_fetch.fetch_funding_rates()
+    try:
+        funding = crypto_fetch.fetch_funding_rates()
+    except Exception as e:
+        print(f"[경고] 펀딩비 수집 실패 (무시): {e}")
+        funding = []
     halving_cyc   = crypto_fetch.halving_cycle()
     stable_stocks = crypto_fetch.fetch_stable_stocks()
     news          = crypto_news.fetch_news()
@@ -293,4 +300,3 @@ if __name__ == "__main__":
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"생성 완료 → {out_path}")
-
