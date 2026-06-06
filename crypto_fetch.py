@@ -1,4 +1,3 @@
-$content = @'
 """
 crypto_fetch.py — 암호화폐 중장기(10년) 트렌드 지표 수집 (Step A)
 용도: run_crypto_daily.py에서 호출 → 결과 반환 → HTML/메일로 전달
@@ -141,5 +140,3 @@ def halving_cycle(last=LAST_HALVING_DATE, target=NEXT_HALVING_DATE):
         "진행률%": pct,
         "단계": stage,
     }
-'@
-[System.IO.File]::WriteAllText("C:\Users\user\dev\crypto-dashboard\crypto_fetch.py", $content, [System.Text.Encoding]::UTF8)
