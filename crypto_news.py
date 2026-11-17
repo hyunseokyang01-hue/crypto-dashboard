@@ -4,6 +4,7 @@ crypto_news.py — 암호화폐 뉴스 헤드라인 수집 (Step A-2)
 설계: crypto_fetch.py와 동일 (순수 수집 함수만. 저장·발송 없음)
 소스: Google News RSS (무료, 키 불필요). 표준 라이브러리만 사용.
 """
+import time
 import requests
 import urllib.parse
 import datetime
@@ -74,7 +75,16 @@ def fetch_news(keywords=KEYWORDS, langs=LANGS):
     for category, words in keywords.items():
         query = " OR ".join(words)
         for lang_name, lang_cfg in langs.items():
-            for art in _fetch_one(query, lang_cfg):
+            try:
+                arts = _fetch_one(query, lang_cfg)
+            except Exception:
+                time.sleep(5)  # 429 등 일시 오류 → 1회 재시도
+                try:
+                    arts = _fetch_one(query, lang_cfg)
+                except Exception as e:
+                    print(f"[경고] 뉴스 수집 실패 (무시): {category}/{lang_name} — {e}")
+                    continue
+            for art in arts:
                 if art["링크"] in seen:
                     continue
                 seen.add(art["링크"])
