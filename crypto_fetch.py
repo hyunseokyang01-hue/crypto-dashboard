@@ -54,11 +54,13 @@ def fetch_stablecoin_mcap():
 def fetch_funding_rates(symbols=FUNDING_SYMBOLS):
     out = []
     for sym in symbols:
-        r = requests.get("https://fapi.binance.com/fapi/v1/premiumIndex",
-                         params={"symbol": sym}, timeout=TIMEOUT)
+        # Binance는 GitHub Actions(미국 IP)를 451로 차단 → OKX USDT 무기한(8h 펀딩)으로 대체
+        inst = sym.replace("USDT", "-USDT-SWAP")   # BTCUSDT → BTC-USDT-SWAP
+        r = requests.get("https://www.okx.com/api/v5/public/funding-rate",
+                         params={"instId": inst}, timeout=TIMEOUT)
         r.raise_for_status()
-        d = r.json()
-        out.append({"심볼": sym, "펀딩비%": float(d["lastFundingRate"]) * 100})
+        d = r.json()["data"][0]
+        out.append({"심볼": sym, "펀딩비%": float(d["fundingRate"]) * 100})
     return out
 
 
